@@ -1,23 +1,26 @@
 package org.coach.tdd.template;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
 
-import java.lang.reflect.Array;
-
 public class GameOfLifeTest {
+    private GameOfLife gameOfLife = new GameOfLife();
     private int test[][] = new int[3][3];
-    GameOfLife gameOfLife = new GameOfLife();
     @Test
-    public void IfCellAroundAllDeadReturnDead() {
+    public void ifCellAroundAllDeadReturnDead() {
         assertEquals(0, gameOfLife.judgeCellStatus(test));
     }
 
     @Test
-    public void IfCellAroundHavaOneCellLivedReturnDead() {
+    public void ifCellAroundHavaOneCellLivedReturnDead() {
         test[0][0] = 1;
         assertEquals(0, gameOfLife.judgeCellStatus(test));
+    }
+    @Test
+    public void ifCellAroundHavaTwoCellLivedReturnLastStatus() {
+        test[0][0] = 1;
+        test[0][1] = 1;
+        int status = test[1][1];
+        assertEquals(status, gameOfLife.judgeCellStatus(test));
     }
 }
