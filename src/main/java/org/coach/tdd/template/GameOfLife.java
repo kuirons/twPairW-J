@@ -17,6 +17,16 @@ public class GameOfLife {
                 }
             }
         }
-        return sum == 2 ? stauts[x][y] : 0;
+        if(sum==2){
+            return stauts[x][y];
+        }
+        else if(sum==3){
+            stauts[x][y]=1;
+            return 1;
+        }
+        else{
+            stauts[x][y]=0;
+            return 0;
+        }
     }
 }

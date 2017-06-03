@@ -26,4 +26,13 @@ public class GameOfLifeTest {
         int status = test[1][1];
         assertEquals(status, gameOfLife.judgeCellStatus(1, 1));
     }
+
+    @Test
+    public void ifCellAroundHavaThreeCellLivedReturnLastStatus() {
+        test[0][0] = 1;
+        test[0][1] = 1;
+        test[0][2] = 1;
+        assertEquals(1, gameOfLife.judgeCellStatus(1, 1));
+    }
+
 }
