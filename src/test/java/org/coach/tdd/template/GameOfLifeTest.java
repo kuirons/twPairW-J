@@ -6,42 +6,47 @@ import org.junit.Test;
 
 public class GameOfLifeTest {
     private GameOfLife gameOfLife = new GameOfLife();
-    private int test[][] = gameOfLife.getStatus();
+    private int[][] test = gameOfLife.getStatus();
 
     @Test
     public void ifCellAroundAllDeadReturnDead() {
-        assertEquals(0, gameOfLife.judgeCellStatus(1, 1));
+        gameOfLife.judgeCellStatus(1, 1);
+        assertEquals(0, test[1][1]);
     }
 
     @Test
-    public void ifCellAroundHavaOneCellLivedReturnDead() {
+    public void ifCellAroundHaveOneCellLivedReturnDead() {
         test[0][0] = 1;
-        assertEquals(0, gameOfLife.judgeCellStatus(1, 1));
+        gameOfLife.judgeCellStatus(1, 1);
+        assertEquals(0, test[1][1]);
     }
 
     @Test
-    public void ifCellAroundHavaTwoCellLivedReturnLastStatus() {
+    public void ifCellAroundHaveTwoCellLivedReturnLastStatus() {
         test[0][1] = 1;
         test[0][2] = 1;
-        int status = test[1][1];
-        assertEquals(status, gameOfLife.judgeCellStatus(1, 1));
+        gameOfLife.judgeCellStatus(1, 1);
+        assertEquals(test[1][1], test[1][1]);
     }
 
     @Test
-    public void ifCellAroundHavaThreeCellLivedReturnLastStatus() {
+    public void ifCellAroundHaveThreeCellLivedReturnLastStatus() {
         test[0][0] = 1;
         test[0][1] = 1;
         test[0][2] = 1;
-        assertEquals(1, gameOfLife.judgeCellStatus(1, 1));
+        gameOfLife.judgeCellStatus(1, 1);
+        assertEquals(1, test[1][1]);
+
     }
 
     @Test
-    public void ifCellAroundHavaMoreThanTreeAliveReturnDead() {
+    public void ifCellAroundHaveMoreThanTreeAliveReturnDead() {
         test[0][0] = 1;
         test[0][1] = 1;
         test[0][2] = 1;
         test[1][2] = 1;
         test[2][1] = 1;
-        assertEquals(0, gameOfLife.judgeCellStatus(1, 1));
+        gameOfLife.judgeCellStatus(1, 1);
+        assertEquals(0, test[1][1]);
     }
 }
