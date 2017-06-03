@@ -1,6 +1,8 @@
 package org.coach.tdd.template;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -48,5 +50,10 @@ public class GameOfLifeTest {
         test[2][1] = 1;
         gameOfLife.judgeCellStatus(1, 1);
         assertEquals(0, test[1][1]);
+    }
+
+    @Test
+    public void judgeArrayBounds() {
+        assertTrue(gameOfLife.judgeArrayBounds(-1, -1));
     }
 }

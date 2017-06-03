@@ -23,4 +23,10 @@ public class GameOfLife {
             status[x][y] = 0;
         }
     }
+
+    public boolean judgeArrayBounds(int x, int y) {
+        if (x < 0 || y < 0)
+            return true;
+        return false;
+    }
 }
