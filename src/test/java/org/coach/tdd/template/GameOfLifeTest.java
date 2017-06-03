@@ -16,14 +16,14 @@ public class GameOfLifeTest {
 
     @Test
     public void ifCellAroundAllDeadReturnDead() {
-        gameOfLife.judgeCellStatus(1, 1);
+        gameOfLife.judgeCellNewStatus(1, 1);
         assertEquals(0, gameOfLife.getStatus()[1][1]);
     }
 
     @Test
     public void ifCellAroundHaveOneCellLivedReturnDead() {
         gameOfLife.getStatus()[0][0] = 1;
-        gameOfLife.judgeCellStatus(1, 1);
+        gameOfLife.judgeCellNewStatus(1, 1);
         assertEquals(0, gameOfLife.getStatus()[1][1]);
     }
 
@@ -31,7 +31,7 @@ public class GameOfLifeTest {
     public void ifCellAroundHaveTwoCellLivedReturnLastStatus() {
         gameOfLife.getStatus()[0][1] = 1;
         gameOfLife.getStatus()[0][2] = 1;
-        gameOfLife.judgeCellStatus(1, 1);
+        gameOfLife.judgeCellNewStatus(1, 1);
         assertEquals(gameOfLife.getStatus()[1][1], gameOfLife.getStatus()[1][1]);
     }
 
@@ -40,7 +40,7 @@ public class GameOfLifeTest {
         gameOfLife.getStatus()[0][0] = 1;
         gameOfLife.getStatus()[0][1] = 1;
         gameOfLife.getStatus()[0][2] = 1;
-        gameOfLife.judgeCellStatus(1, 1);
+        gameOfLife.judgeCellNewStatus(1, 1);
         assertEquals(1, gameOfLife.getNewStatus()[1][1]);
     }
 
@@ -51,7 +51,7 @@ public class GameOfLifeTest {
         gameOfLife.getStatus()[0][2] = 1;
         gameOfLife.getStatus()[1][2] = 1;
         gameOfLife.getStatus()[2][1] = 1;
-        gameOfLife.judgeCellStatus(1, 1);
+        gameOfLife.judgeCellNewStatus(1, 1);
         assertEquals(0, gameOfLife.getStatus()[1][1]);
     }
 
@@ -61,7 +61,7 @@ public class GameOfLifeTest {
         gameOfLife.getStatus()[1][1] = 1;
         gameOfLife.getStatus()[1][0] = 1;
         gameOfLife.copyArray(gameOfLife.getNewStatus(), gameOfLife.getStatus());
-        gameOfLife.judgeCellStatus(0, 0);
+        gameOfLife.judgeCellNewStatus(0, 0);
         assertEquals(1, gameOfLife.getNewStatus()[0][0]);
     }
 

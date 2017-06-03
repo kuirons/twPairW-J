@@ -17,7 +17,7 @@ public class GameOfLife {
         return status;
     }
 
-    public void judgeCellStatus(int x, int y) {
+    public void judgeCellNewStatus(int x, int y) {
         int sum = 0;
         for (int i = x - 1; i < x + 2; i++) {
             for (int j = y - 1; j < y + 2; j++) {
@@ -126,7 +126,7 @@ public class GameOfLife {
     public void refreshAllCellStatus() {
         for (int i = 0; i < varX; i++) {
             for (int j = 0; j < varY; j++) {
-                judgeCellStatus(i, j);
+                judgeCellNewStatus(i, j);
             }
         }
     }
