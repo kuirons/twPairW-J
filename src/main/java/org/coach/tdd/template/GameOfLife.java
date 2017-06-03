@@ -1,6 +1,7 @@
 package org.coach.tdd.template;
 
 import java.io.IOException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class GameOfLife {
@@ -57,7 +58,7 @@ public class GameOfLife {
     public void getInput() {
         Scanner scanner = new Scanner(System.in);
         if (checkInput(scanner.nextLine())) {
-            
+
         } else {
             System.out.println("格式错误，请重新输入");
             getInput();
@@ -65,9 +66,19 @@ public class GameOfLife {
         scanner.close();
     }
 
+    public int getRandom() {
+        Random random = new Random(25);
+        return random.nextInt(varX > varY ? varY : varX);
+    }
 
     public static void main(String[] args) {
         GameOfLife gameOfLife = new GameOfLife();
         gameOfLife.getInput();
+        int pairXYnum = (int) (gameOfLife.varX * gameOfLife.varY * 0.15);
+        for (int i = 0; i < pairXYnum; i++) {
+            gameOfLife.status[gameOfLife.getRandom()][gameOfLife.getRandom()] = 1;
+        }
+
     }
+
 }
