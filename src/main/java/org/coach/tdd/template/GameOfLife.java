@@ -1,11 +1,13 @@
 package org.coach.tdd.template;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
 public class GameOfLife {
 
     private int[][] status;
+    private int[][] newStatus;
     private int varX;
     private int varY;
 
@@ -15,25 +17,32 @@ public class GameOfLife {
 
     public void judgeCellStatus(int x, int y) {
         int sum = 0;
-        int[][] newStatus = status;
+
         for (int i = x - 1; i < x + 2; i++) {
-            for (int j = y - 1; j < y + 2; j++) {
-                if (!judgeArrayBounds(i, j)) {
-                    if (newStatus[i][j] == 1) {
-                        sum++;
+            if (!(i < 0 || i > varX - 1)) {
+                for (int j = y - 1; j < y + 2; j++) {
+                    if (!(j < 0 || j > varY - 1)) {
+                        if (!(i == x && j == y)) {
+                            if (status[i][j] == 1) {
+                                sum++;
+                            }
+                        }
                     }
                 }
             }
         }
+//        System.out.print(sum + " \n");
         if (sum == 3) {
-            status[x][y] = 1;
-        } else if (sum != 2) {
-            status[x][y] = 0;
+            newStatus[x][y] = 1;
+        } else if (sum == 2) {
+            newStatus[x][y] = status[x][y];
+        } else {
+            newStatus[x][y] = 0;
         }
     }
 
     public boolean judgeArrayBounds(int x, int y) {
-        if (x < 0 || y < 0 || x > status.length - 1 || y > status[0].length - 1) {
+        if (x < 0 || y < 0 || x > varX - 1 || y > varY - 1) {
             return true;
         }
         return false;
@@ -50,11 +59,21 @@ public class GameOfLife {
             varX = x;
             varY = y;
             status = new int[varX][varY];
+            newStatus = new int[varX][varY];
             return true;
         }
         return false;
     }
 
+
+    public void copyArray(int newArr[][], int oldArr[][]) {
+        for (int i = 0; i < varX; i++) {
+            for (int j = 0; j < varY; j++) {
+                newArr[i][j] = oldArr[i][j];
+            }
+
+        }
+    }
 
     public void getInput() {
         System.out.println("请输入(x,y)格式的两个数字:");
@@ -69,6 +88,7 @@ public class GameOfLife {
             status[3][3] = 1;
             status[0][0] = 1;
             status[0][1] = 1;
+            copyArray(newStatus, status);
             recycleGame30Times();
         } else {
             System.out.println("格式错误，请重新输入");
@@ -83,9 +103,11 @@ public class GameOfLife {
     }
 
     public void recycleGame30Times() {
+
         for (int i = 0; i < 30; i++) {
             refreshPrint();
             refreshAllCellStatus();
+            copyArray(status, newStatus);
         }
     }
 
