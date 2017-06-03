@@ -69,4 +69,9 @@ public class GameOfLifeTest {
     public void judgeArrayBoundsRightBottom() {
         assertTrue(gameOfLife.judgeArrayBounds(test.length, test[0].length));
     }
+
+    @Test
+    public void isInputSuccess() {
+        assertTrue(gameOfLife.checkInput("3,3"));
+    }
 }
