@@ -1,15 +1,17 @@
 package org.coach.tdd.template;
 
-import java.util.Arrays;
-import java.util.Random;
 import java.util.Scanner;
 
 public class GameOfLife {
 
-    public int[][] status;
+    private int[][] status;
     private int[][] newStatus;
     private int varX;
     private int varY;
+
+    public int[][] getNewStatus() {
+        return newStatus;
+    }
 
     public int[][] getStatus() {
         return status;
@@ -18,19 +20,21 @@ public class GameOfLife {
     public void judgeCellStatus(int x, int y) {
         int sum = 0;
         for (int i = x - 1; i < x + 2; i++) {
-            if (!(i < 0 || i > varX - 1)) {
-                for (int j = y - 1; j < y + 2; j++) {
-                    if (!(j < 0 || j > varY - 1)) {
-                        if (!(i == x && j == y)) {
-                            if (status[i][j] == 1) {
-                                sum++;
-                            }
-                        }
+            for (int j = y - 1; j < y + 2; j++) {
+                if (judgeArrayBounds(i, j)) {
+                    continue;
+                }
+                if (!(i == x && j == y)) {
+                    if (status[i][j] == 1) {
+                        sum++;
                     }
                 }
             }
         }
-//        System.out.print(sum + " \n");
+        getNewCellStatus(x, y, sum);
+    }
+
+    private void getNewCellStatus(int x, int y, int sum) {
         if (sum == 3) {
             newStatus[x][y] = 1;
         } else if (sum == 2) {
@@ -40,6 +44,7 @@ public class GameOfLife {
         }
     }
 
+
     public boolean judgeArrayBounds(int x, int y) {
         if (x < 0 || y < 0 || x > varX - 1 || y > varY - 1) {
             return true;
@@ -48,24 +53,26 @@ public class GameOfLife {
     }
 
     public boolean checkInput(String input) {
+        boolean flag = false;
         if (input.isEmpty()) {
-            return false;
+            flag = false;
+        } else {
+            String[] inputs = input.split(",");
+            int x = Integer.parseInt(inputs[0]);
+            int y = Integer.parseInt(inputs[1]);
+            if (x >= 3 && y >= 3) {
+                varX = x;
+                varY = y;
+                status = new int[varX][varY];
+                newStatus = new int[varX][varY];
+                flag = true;
+            }
         }
-        String[] inputs = input.split(",");
-        int x = Integer.parseInt(inputs[0]);
-        int y = Integer.parseInt(inputs[1]);
-        if (x >= 3 && y >= 3) {
-            varX = x;
-            varY = y;
-            status = new int[varX][varY];
-            newStatus = new int[varX][varY];
-            return true;
-        }
-        return false;
+        return flag;
     }
 
 
-    public void copyArray(int newArr[][], int oldArr[][]) {
+    public void copyArray(int[][] newArr, int[][] oldArr) {
         for (int i = 0; i < varX; i++) {
             for (int j = 0; j < varY; j++) {
                 newArr[i][j] = oldArr[i][j];
@@ -79,7 +86,6 @@ public class GameOfLife {
         Scanner scanner = new Scanner(System.in);
         if (checkInput(scanner.nextLine())) {
             int pairXYnum = (int) (varX * varY * 0.3);
-            System.out.println(pairXYnum);
             for (int i = 0; i < pairXYnum; i++) {
                 status[getRandom()][getRandom()] = 1;
             }
