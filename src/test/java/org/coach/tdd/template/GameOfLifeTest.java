@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 public class GameOfLifeTest {
     private GameOfLife gameOfLife = new GameOfLife();
-    private int[][] test = gameOfLife.getStatus();
+    private int[][] test = new int[3][4];
 
     @Test
     public void ifCellAroundAllDeadReturnDead() {
@@ -37,7 +37,6 @@ public class GameOfLifeTest {
         test[0][2] = 1;
         gameOfLife.judgeCellStatus(1, 1);
         assertEquals(1, test[1][1]);
-
     }
 
     @Test

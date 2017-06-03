@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class GameOfLife {
 
-    private int[][] status;
+    public int[][] status;
     private int[][] newStatus;
     private int varX;
     private int varY;
@@ -17,7 +17,6 @@ public class GameOfLife {
 
     public void judgeCellStatus(int x, int y) {
         int sum = 0;
-
         for (int i = x - 1; i < x + 2; i++) {
             if (!(i < 0 || i > varX - 1)) {
                 for (int j = y - 1; j < y + 2; j++) {
@@ -79,15 +78,11 @@ public class GameOfLife {
         System.out.println("请输入(x,y)格式的两个数字:");
         Scanner scanner = new Scanner(System.in);
         if (checkInput(scanner.nextLine())) {
-            int pairXYnum = (int) (varX * varY * 0.15);
-//            for (int i = 0; i < pairXYnum; i++) {
-//                status[getRandom()][getRandom()] = 1;
-//            }
-            status[1][1] = 1;
-            status[2][2] = 1;
-            status[3][3] = 1;
-            status[0][0] = 1;
-            status[0][1] = 1;
+            int pairXYnum = (int) (varX * varY * 0.3);
+            System.out.println(pairXYnum);
+            for (int i = 0; i < pairXYnum; i++) {
+                status[getRandom()][getRandom()] = 1;
+            }
             copyArray(newStatus, status);
             recycleGame30Times();
         } else {
@@ -98,12 +93,12 @@ public class GameOfLife {
     }
 
     public int getRandom() {
-        Random random = new Random(25);
-        return random.nextInt(varX > varY ? varY : varX);
+        int minV = varX > varY ? varY : varX;
+        int a = (int) (Math.random() * minV);
+        return a;
     }
 
     public void recycleGame30Times() {
-
         for (int i = 0; i < 30; i++) {
             refreshPrint();
             refreshAllCellStatus();
