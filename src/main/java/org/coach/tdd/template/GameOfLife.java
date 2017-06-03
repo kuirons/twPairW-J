@@ -81,21 +81,23 @@ public class GameOfLife {
         }
     }
 
-    public void getInput() {
+    public boolean getInput() {
+        boolean flag = false;
         System.out.println("请输入(x,y)格式的两个数字:");
         Scanner scanner = new Scanner(System.in);
         if (checkInput(scanner.nextLine())) {
-            int pairXYnum = (int) (varX * varY * 0.3);
-            for (int i = 0; i < pairXYnum; i++) {
-                status[getRandom()][getRandom()] = 1;
-            }
-            copyArray(newStatus, status);
-            recycleGame30Times();
+            flag = true;
+//            int pairs = (int) (varX * varY * 0.3);
+//            for (int i = 0; i < pairs; i++) {
+//                status[getRandom()][getRandom()] = 1;
+//            }
+//            copyArray(newStatus, status);
+//            recycleGame30Times();
         } else {
-            System.out.println("格式错误，请重新输入");
-            getInput();
+            System.out.println("格式错误");
         }
         scanner.close();
+        return flag;
     }
 
     public int getRandom() {
@@ -133,7 +135,13 @@ public class GameOfLife {
 
     public static void main(String[] args) {
         GameOfLife gameOfLife = new GameOfLife();
-        gameOfLife.getInput();
+        if (gameOfLife.getInput()) {
+            int pairs = (int) (gameOfLife.varX * gameOfLife.varY * 0.3);
+            for (int i = 0; i < pairs; i++) {
+                gameOfLife.status[gameOfLife.getRandom()][gameOfLife.getRandom()] = 1;
+            }
+            gameOfLife.copyArray(gameOfLife.newStatus, gameOfLife.status);
+            gameOfLife.recycleGame30Times();
+        }
     }
-
 }
