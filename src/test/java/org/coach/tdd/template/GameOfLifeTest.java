@@ -1,10 +1,9 @@
 package org.coach.tdd.template;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class GameOfLifeTest {
     private GameOfLife gameOfLife = new GameOfLife();
@@ -53,7 +52,21 @@ public class GameOfLifeTest {
     }
 
     @Test
-    public void judgeArrayBounds() {
+    public void ifCellAtLeftTop() {
+        test[0][1] = 1;
+        test[1][1] = 1;
+        test[1][0] = 1;
+        gameOfLife.judgeCellStatus(0, 0);
+        assertEquals(1, test[0][0]);
+    }
+
+    @Test
+    public void judgeArrayBoundsLeftTop() {
         assertTrue(gameOfLife.judgeArrayBounds(-1, -1));
+    }
+
+    @Test
+    public void judgeArrayBoundsRightBottom() {
+        assertTrue(gameOfLife.judgeArrayBounds(test.length, test[0].length));
     }
 }
