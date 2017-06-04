@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">GameOfLife</string>
+    <string name="start">StartGame</string>
+    <string name="stop">StopGame</string>
+    <string name="SetCell">Set Your Cell</string>
+    <string name="Playing">Living</string>
+    <string name="cell_size">cell size:</string>
+    <string name="back_size">back size:</string>
+</resources>
